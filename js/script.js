@@ -65,10 +65,12 @@ function checkWinCondition() {
         if (b1Child == "x" && b2Child == "x" && b3Child == "x") {
             //x
             console.log("x venceu");
+            declareWinner(x)
 
         } else if (b1Child == "o" && b2Child == "o" && b3Child == "o") {
             // o
             console.log("O venceu");
+            declareWinner(o)
 
         }
     }
@@ -81,10 +83,12 @@ function checkWinCondition() {
         if (b4Child == "x" && b5Child == "x" && b6Child == "x") {
             //x
             console.log("x venceu");
+            declareWinner(x)
 
         } else if (b4Child == "o" && b5Child == "o" && b6Child == "o") {
             // o
             console.log("O venceu");
+            declareWinner(o)    
 
         }
     }
@@ -96,10 +100,12 @@ function checkWinCondition() {
         if (b7Child == "x" && b8Child == "x" && b9Child == "x") {
             //x
             console.log("x venceu");
+            declareWinner(x)
 
         } else if (b7Child == "o" && b8Child == "o" && b9Child == "o") {
             // o
             console.log("O venceu");
+            declareWinner(o)
 
         }
     }
@@ -114,10 +120,12 @@ function checkWinCondition() {
         if (b2Child == "x" && b5Child == "x" && b8Child == "x") {
             //x
             console.log("x venceu");
+            declareWinner(x)
 
         } else if (b2Child == "o" && b5Child == "o" && b8Child == "o") {
             // o
             console.log("O venceu");
+            declareWinner(o)
 
         }
     }
@@ -129,10 +137,12 @@ function checkWinCondition() {
         if (b1Child == "x" && b4Child == "x" && b7Child == "x") {
             //x
             console.log("x venceu");
+            declareWinner(x)
 
         } else if (b1Child == "o" && b4Child == "o" && b7Child == "o") {
             // o
             console.log("O venceu");
+            declareWinner(o)
 
         }
     }
@@ -144,10 +154,12 @@ function checkWinCondition() {
         if (b3Child == "x" && b6Child == "x" && b9Child == "x") {
             //x
             console.log("x venceu");
+            declareWinner(x)
 
         } else if (b3Child == "o" && b6Child == "o" && b9Child == "o") {
             // o
             console.log("O venceu");
+            declareWinner(o)
 
         }
     }
@@ -159,10 +171,12 @@ function checkWinCondition() {
         if (b7Child == "x" && b8Child == "x" && b9Child == "x") {
             //x
             console.log("x venceu");
+            declareWinner(x)
 
         } else if (b7Child == "o" && b8Child == "o" && b9Child == "o") {
             // o
             console.log("O venceu");
+            declareWinner(o)
 
         }
     }
@@ -176,10 +190,12 @@ function checkWinCondition() {
         if (b1Child == "x" && b5Child == "x" && b9Child == "x") {
             //x
             console.log("x venceu");
+            declareWinner(x)
 
         } else if (b1Child == "o" && b5Child == "o" && b9Child == "o") {
             // o
             console.log("O venceu");
+            declareWinner(o)
 
         }
     }
@@ -190,11 +206,13 @@ function checkWinCondition() {
 
         if (b3Child == "x" && b5Child == "x" && b7Child == "x") {
             //x
+            declareWinner(x)
             console.log("x venceu");
 
         } else if (b3Child == "o" && b5Child == "o" && b7Child == "o") {
             // o
             console.log("O venceu");
+            declareWinner(o)
 
         }
     }
@@ -208,5 +226,30 @@ function checkWinCondition() {
     }
     if(counter == 9){
         console.log("deu velha")
+        declareWinner()
     }
+}
+
+
+// limpa , o jogo , declara o vencedor e atualiza o placar
+
+function declareWinner (winner ){
+    let scoreboardX = document.querySelector("#scoreboard-1")
+    let scoreboardY = document.querySelector("#scoreboard-2")
+    let msg = ''
+
+    if(winner ==x){
+        scoreboardX.textContent = parseInt(scoreboardX.textContent) + 1
+        msg = "O jogador 1 venceu"
+    } else if(winner == o){
+        scoreboardY.textContent = parseInt(scoreboardY.textContent) + 1
+        msg = "O jogador 2 venceu"
+    } else{
+        msg = "Deu velha"
+    }
+
+    // exibe msg
+
+    messageText.innerHTML = msg
+    messageContainer.classList.remove("hide")
 }
