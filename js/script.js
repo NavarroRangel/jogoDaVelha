@@ -1,11 +1,10 @@
 let x = document.querySelector('.x')
 let o = document.querySelector('.o')
 let boxes = document.querySelectorAll(".box")
-let buttons = document.querySelectorAll("buttons-container button")
+let buttons = document.querySelectorAll("#buttons-container button")
 let messageContainer = document.querySelector("#message")
 let messageText = document.querySelector("#message p")
-
-let seconPlayer;
+let seconPlayer
 
 //contador de jogadas
 let player1 = 0
@@ -14,15 +13,24 @@ let player2 = 0
 
 // adicionando evento de click aos boxes
 for (let i = 0; i < boxes.length; i++) {
+
     boxes[i].addEventListener("click", function () {
+
         let el = checkEl(player1, player2)
+
         //verifica se ja tem x ou o
+        
         if (this.childNodes.length == 0) {
             let cloneEl = el.cloneNode(true)
             this.appendChild(cloneEl)
 
             if (player1 == player2) {
                 player1++
+
+                if(seconPlayer == "ai-player") {
+                    computerPlay()
+                    player2++
+                    }
 
             } else {
                 player2++
@@ -31,6 +39,24 @@ for (let i = 0; i < boxes.length; i++) {
         }
 
     })
+}
+
+// evennto para saber se é 2 jogadores ou IA
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function () {
+        
+        seconPlayer = this.getAttribute("id")
+        for (let j = 0; j < buttons.length; j++) {
+            buttons[j].style.display = "none"
+
+        }
+        setTimeout(function () {
+            let container = document.querySelector("#container")
+            container.classList.remove("hide")
+        }, 500)
+    })
+    console.log("clicopu");
+
 }
 
 function checkEl(player1, player2) {
@@ -88,7 +114,7 @@ function checkWinCondition() {
         } else if (b4Child == "o" && b5Child == "o" && b6Child == "o") {
             // o
             console.log("O venceu");
-            declareWinner(o)    
+            declareWinner(o)
 
         }
     }
@@ -219,12 +245,12 @@ function checkWinCondition() {
 
     // deu velha
     let counter = 0
-    for(let i = 0; i < boxes.length; i++){
-        if(boxes[i].childNodes[0] != undefined){
+    for (let i = 0; i < boxes.length; i++) {
+        if (boxes[i].childNodes[0] != undefined) {
             counter++
         }
     }
-    if(counter == 9){
+    if (counter == 9) {
         console.log("deu velha")
         declareWinner()
     }
@@ -233,18 +259,18 @@ function checkWinCondition() {
 
 // limpa , o jogo , declara o vencedor e atualiza o placar
 
-function declareWinner (winner ){
+function declareWinner(winner) {
     let scoreboardX = document.querySelector("#scoreboard-1")
     let scoreboardY = document.querySelector("#scoreboard-2")
     let msg = ''
 
-    if(winner ==x){
+    if (winner == x) {
         scoreboardX.textContent = parseInt(scoreboardX.textContent) + 1
         msg = "O jogador 1 venceu"
-    } else if(winner == o){
+    } else if (winner == o) {
         scoreboardY.textContent = parseInt(scoreboardY.textContent) + 1
         msg = "O jogador 2 venceu"
-    } else{
+    } else {
         msg = "Deu velha"
     }
 
@@ -253,9 +279,9 @@ function declareWinner (winner ){
     messageText.innerHTML = msg
     messageContainer.classList.remove("hide")
 
-    setTimeout(function(){
+    setTimeout(function () {
         messageContainer.classList.add("hide")
-    },3000);
+    }, 3000);
 
     //zera as jogadas
     player1 = 0
@@ -263,7 +289,20 @@ function declareWinner (winner ){
 
     // remove x e 0
     let boxesToRemove = document.querySelectorAll(".box div")
-    for(let i = 0; i < boxesToRemove.length; i++){
+    for (let i = 0; i < boxesToRemove.length; i++) {
         boxesToRemove[i].parentNode.removeChild(boxesToRemove[i])
     }
+}
+
+function computerPlay() {   
+    let cloneO = o.cloneNode(true)
+    let filled = false
+
+    do {
+        let randomNumber = Math.floor(Math.random() * 9)
+        if (boxes[randomNumber].childNodes.length == 0) {
+            boxes[randomNumber].appendChild(cloneO)
+            filled = true
+        }
+    } while (!filled)
 }
