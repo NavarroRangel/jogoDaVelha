@@ -295,14 +295,24 @@ function declareWinner(winner) {
 }
 
 function computerPlay() {   
-    let cloneO = o.cloneNode(true)
-    let filled = false
-
-    do {
-        let randomNumber = Math.floor(Math.random() * 9)
-        if (boxes[randomNumber].childNodes.length == 0) {
-            boxes[randomNumber].appendChild(cloneO)
-            filled = true
+    let computer = o.cloneNode(true)
+    let filled = 0
+    counter = 0
+    // só preenche se o filho estiver vazio
+    for(let i = 0; i < boxes.length; i++) {
+        let randomNumber = Math.floor(Math.random() * 5)
+        if(boxes[i].childNodes[0] == undefined) {
+            if(randomNumber <= 1) {
+                boxes[i].appendChild(computer)
+                counter++
+                break
+            }
+            // checagem de quantas estão preenchidas
+        } else{ 
+            filled++
         }
-    } while (!filled)
+    }
+    if(counter == 0 && filled < 9) {
+        computerPlay()
+    }
 }
